@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useProducts } from "../hooks/apiHooks";
 import { Product } from "../types/DBTypes";
-import { Link, useLocation } from "react-router-dom";
-import SingleProduct from "./SingleProduct";
+import { Link } from "react-router-dom";
+
 
 const ProductList = () => {
   const { getProducts } = useProducts();

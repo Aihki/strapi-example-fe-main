@@ -1,4 +1,4 @@
-import { fetchData } from "../lib/utils";
+import { fetchData, shuffleArray } from "../lib/utils";
 import { Product } from "../types/DBTypes";
 
 
@@ -26,7 +26,23 @@ const useProducts = () => {
             ...response.data.attributes
         };
     };
-    return { getProducts, getSingleProduct }
+
+    const getFeaturedProducts = async (): Promise<Product[]> => {
+        const response = await fetchData<{ data: { id: number, attributes: any }[] }>(
+            `http://localhost:1337/api/products?populate=*`
+        );
+        console.log(response)
+        const shuffledData = shuffleArray(response.data);
+        return shuffledData.slice(0, 3).map(({ id, attributes }) => ({
+            id,
+            ...attributes 
+        }));
+    };
+    
+
+
+
+    return { getProducts, getSingleProduct, getFeaturedProducts }
 };
 
 
